@@ -6,6 +6,7 @@
 package manager;
 
 import entity.Customer;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -21,39 +22,46 @@ public class CustomerManager {
     
     public Customer createCustomer() {
         Customer customer = new Customer();
-        System.out.println("Введите имя покупателя: ");
+        System.out.println("Р’РІРµРґРёС‚Рµ РёРјСЏ РїРѕРєСѓРїР°С‚РµР»СЏ: ");
         customer.setFirstName(scanner.nextLine());
-        System.out.println("Введите фамилию покупателя: ");
+        System.out.println("Р’РІРµРґРёС‚Рµ С„Р°РјРёР»РёСЋ РїРѕРєСѓРїР°С‚РµР»СЏ: ");
         customer.setLastName(scanner.nextLine());
-        System.out.println("Введите телефон покупателя: ");
+        System.out.println("Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°: ");
         customer.setPhone(scanner.nextLine());
-        System.out.println("Введите количество денег покупателя: ");
-        customer.setCash(scanner.nextDouble());scanner.nextLine();
+        System.out.println("Р’РµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ РґРµРЅРµРі РїРѕРєСѓРїР°С‚РµР»СЏ: ");
+        customer.setCash(scanner.nextFloat());scanner.nextLine();
         
         return customer;
     }
     
-    public void addMoney(Customer[] customers) {
+    public void addMoney(List<Customer> customers) {
         
-        System.out.println("Список покупателей.");
+        System.out.println("РЎРїРёСЃРѕРє РїРѕРєСѓРїР°С‚РµР»РµР№.");
         printListCustomer(customers);
-        System.out.println("Введите номер покупателя из списка: ");
+        System.out.println("Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ РїРѕРєСѓРїР°С‚РµР»СЏ: ");
         int numberCustomer = scanner.nextInt(); scanner.nextLine();
-        System.out.println("Введите сумму для добавления: ");
+        System.out.printf("РЈ РїРѕРєСѓРїР°С‚РµР»СЏ %s eur%n",customers.get(numberCustomer - 1).getCash());
+        System.out.println("Р’РІРµРґРёС‚Рµ СЃСѓРјРјСѓ: ");
         double addM = scanner.nextDouble();scanner.nextLine();
-        customers[numberCustomer-1].setCash(customers[numberCustomer-1].getCash() + addM);
+//        customers[numberCustomer-1].setCash(customers[numberCustomer-1].getCash() + addM);
+        customers.get(numberCustomer - 1).setCash(customers.get(numberCustomer - 1).getCash() + addM);
         
     }
     
-    public void printListCustomer(Customer[] customers) {
-        for(int i  = 0; i < customers.length; i++) {
-            System.out.printf("%d. Имя: %s Фамилия: %s Телефон: %s Наличные: %s%n"
-                    ,(i+1)
-                    ,customers[i].getFirstName()
-                    ,customers[i].getLastName()
-                    ,customers[i].getPhone()
-                    ,customers[i].getCash()
-                    
+//    public void printListCustomer(Customer[] customers) {
+//        for(int i  = 0; i < customers.length; i++) { 
+    public void printListCustomer(List<Customer> customers) {
+        for (int i = 0; i < customers.size(); i++) {
+            System.out.printf("%d. РРјСЏ: %s Р¤Р°РјРёР»РёСЏ: %s РўРµР»РµС„РѕРЅ: %s Р”РµРЅСЊРіРё: %s%n",
+                    (i+1),
+//                    ,customers[i].getFirstName()
+//                    ,customers[i].getLastName()
+//                    ,customers[i].getPhone()
+//                    ,customers[i].getCash()
+                    customers.get(i).getFirstName(),
+                    customers.get(i).getLastName(),
+                    customers.get(i).getPhone(),
+                    customers.get(i).getCash()
             );
         }
     }

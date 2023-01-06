@@ -5,17 +5,31 @@
  */
 package entity;
 
+import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 
 /**
  *
  * @author pupil
  */
-public class Purchase {
+@Entity
+public class Purchase implements Serializable{
     
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @OneToOne(cascade = {CascadeType.MERGE})
     private Customer customer;
+    @OneToOne (cascade = {CascadeType.MERGE})
     private Shoe shoe;
     private int Qtty;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date purchaseDate;
 
     public Purchase() {
@@ -51,6 +65,14 @@ public class Purchase {
 
     public void setPurchaseDate(Date purchaseDate) {
         this.purchaseDate = purchaseDate;
+    }
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override

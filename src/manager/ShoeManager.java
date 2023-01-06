@@ -6,6 +6,7 @@
 package manager;
 
 import entity.Shoe;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -21,26 +22,28 @@ public class ShoeManager {
     
     public Shoe createShoe() {
         Shoe shoe = new Shoe();
-        System.out.println("Введите название продукта: ");
+        System.out.println("Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ РѕР±СѓРІРё: ");
         shoe.setName(scanner.nextLine());
-        System.out.println("Введите цену: ");
+        System.out.println("Р’РІРµРґРёС‚Рµ С†РµРЅСѓ: ");
         shoe.setPrice(scanner.nextDouble());scanner.nextLine();
-        System.out.println("Введите количество: ");
+        System.out.println("Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ: ");
         shoe.setCountItem(scanner.nextInt());scanner.nextLine();
         
         return shoe;
     }
     
-    public void printListShoes(Shoe[] shoes) {
-        for(int i  = 0; i < shoes.length; i++) {
-            System.out.printf("%d. Товар: %s Цена: %s Количество: %s%n"
+    public void printListShoes(List<Shoe> shoes) {
+        for(int i  = 0; i < shoes.size(); i++) {
+            System.out.printf("%d. РќР°Р·РІР°РЅРёРµ: %s Р¦РµРЅР°: %s РљРѕР»РёС‡РµСЃС‚РІРѕ: %s%n"
                     ,(i+1)
-                    ,shoes[i].getName()
-                    ,shoes[i].getPrice()
-                    ,shoes[i].getCountItem()
+                    ,shoes.get(i).getName()
+                    ,shoes.get(i).getPrice()
+                    ,shoes.get(i).getCountItem()
                     
             );
         }
     }
+
+
     
 }

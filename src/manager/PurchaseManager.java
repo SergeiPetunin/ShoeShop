@@ -8,6 +8,8 @@ package manager;
 import entity.Customer;
 import entity.Purchase;
 import entity.Shoe;
+import java.util.Arrays;
+import java.util.List;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
@@ -27,44 +29,48 @@ public class PurchaseManager {
         scanner = new Scanner(System.in);
     }
     
-    public Purchase createPurchase(Customer[] customers, Shoe[] shoes) {
+    public Purchase createPurchase(List<Customer> customers, List<Shoe> shoes) {
         Purchase purchase = new Purchase();
         
-        System.out.println("Список покупателей.");
+        System.out.println("РЎРїРёСЃРѕРє РїРѕРєСѓРїР°С‚РµР»РµР»РµР№.");
         customerManager.printListCustomer(customers);
-        System.out.println("Введите номер покупателя из списка: ");
+        System.out.println("Р’С‹Р±РµСЂРµС‚Рµ РЅРѕРјРµСЂ РёР· СЃРїРёСЃРєР°: ");
         int numberCustomer = scanner.nextInt(); scanner.nextLine();
         
-        System.out.println("Список обуви.");
+        System.out.println("РЎРїРёСЃРѕРє РѕР±СѓРІРё.");
         shoeManager.printListShoes(shoes);
-        System.out.println("Введите номер обуви из списка: ");
+        System.out.println("Р’С‹Р±РµСЂРµС‚Рµ РЅРѕРјРµСЂ РёР· СЃРїРёСЃРєР°: ");
         int numberShoe = scanner.nextInt(); scanner.nextLine();
         
-        System.out.println("Введите количество");
+        System.out.println("Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ");
         int itemQtty = scanner.nextInt(); scanner.nextLine();
         
-        purchase.setCustomer(customers[numberCustomer-1]);
-        purchase.setShoe(shoes[numberShoe-1]);
+//        purchase.setCustomer(customers[numberCustomer-1]);
+        purchase.setCustomer(customers.get(numberCustomer - 1));
+//        purchase.setShoe(shoes[numberShoe-1]);
+        purchase.setShoe(shoes.get(numberShoe - 1));
         purchase.setQtty(itemQtty);
         purchase.setPurchaseDate(new GregorianCalendar().getTime());
-        shoes[numberShoe-1].setCountItem(shoes[numberShoe-1].getCountItem()-itemQtty);
-        customers[numberCustomer - 1].setCash(customers[numberCustomer -1].getCash() - itemQtty * shoes[numberShoe - 1].getPrice());
+//        shoes[numberShoe-1].setCountItem(shoes[numberShoe-1].getCountItem()-itemQtty);
+        shoes.get(numberShoe - 1).setCountItem(shoes.get(numberShoe - 1).getCountItem() - itemQtty);
+//        customers[numberCustomer - 1].setCash(customers[numberCustomer -1].getCash() - itemQtty * shoes[numberShoe - 1].getPrice());
+        customers.get(numberCustomer - 1).setCash(customers.get(numberCustomer - 1).getCash() - itemQtty * shoes.get(numberShoe - 1).getPrice());
         
         return purchase;
     }
     
-    public void PriceOfAllPurchase(Purchase[] purchases) {
+    public void PriceOfAllPurchase(List<Purchase>purchases) {
         double shopMoney = 0;
-        for(int i = 0; i < purchases.length; i++) {
-            shopMoney += purchases[i].getQtty() * purchases[i].getShoe().getPrice();
+        for(int i = 0; i < purchases.size(); i++) {
+            shopMoney += purchases.get(i).getQtty() * purchases.get(i).getShoe().getPrice();
         }
-        System.out.println("Доход магазина за все время работы" + shopMoney);
+        System.out.println("Р’СЃРµРіРѕ Р·Р°СЂР°Р±РѕС‚Р°РЅРѕ" + shopMoney);
     }
     
     public void printHistoryPurchase(Purchase[] purchases) {
         for(int i  = 0; i < purchases.length; i++) {
             Purchase purchase = purchases[i];
-            System.out.printf("%d. Покупатель: %s. Обувь: %s Количество:  %s  Дата покупки: %s%n"
+            System.out.printf("%d. РџРѕРєСѓРїР°С‚РµР»СЊ: %s. РўРѕРІР°СЂ: %s РљРѕР»РёС‡РµСЃС‚РІРѕ:  %s  Р”Р°С‚Р° РїРѕРєСѓРїРєРё: %s%n"
                 ,i + 1
                 ,purchase.getCustomer()
                 ,purchase.getShoe()
